@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Guessing Game</title>
+</head>
+<body>
+
+    <h2>Guessing Game</h2>
+
+    <!-- Difficulty Level Selection -->
+    <p>Select Difficulty Level:</p>
+    <button onclick="setRandom(1)">Easy</button>
+    <button onclick="setRandom(2)">Medium</button>
+    <button onclick="setRandom(3)">Hard</button>
+
+    <br><br>
+
+    
+    <label for="guess1">Guess the Number:</label>
+    <input type="text" name="guess" id="guess1" placeholder="Enter a Number">
+    <input type="button" value="Guess" onclick="playerGuess()">
+
+    
+    <p id="feedbackLabel"></p>
+    <p id="guessesLeftLabel"></p>
+
+    <script>
+        
+        var secret = "";
+        var guessesRemaining = 0;
+
+        // To set difficulty and level
+        function setRandom(level) {
+            secret = ""; 
+
+            // Set maximum tries based on level chosen by player
+            if (level === 1) {
+                guessesRemaining = 3;
+            } else if (level === 2) {
+                guessesRemaining = 5;
+            } else if (level === 3) {
+                guessesRemaining = 8;
+            }
+
+            // Update display
+            document.getElementById("guessesLeftLabel").innerText = "Guesses Left: " + guessesRemaining;
+            document.getElementById("feedbackLabel").innerText = "New game started! Make your guess.";
+
+            // First digit, has to be nonezeo
+            if (level > 0) {
+                secret = secret + (Math.floor(Math.random() * 9) + 1);
+                level--;
+            }
+
+            // Remaining digits, could be 0
+            while (level > 0) {
+                secret = secret + Math.floor(Math.random() * 10);
+                level--;
+            }
+        }
+
+        // Handles user guesses
+        function playerGuess() {
+            // End game
+            if (guessesRemaining <= 0) {
+                document.getElementById("guessesLeftLabel").innerText = "Guesses Left: 0";
+                document.getElementById("feedbackLabel").innerText = "Game over, press one of the difficulty levels to play again.";
+                return;
+            }
+
+            
+            var userGuess = document.getElementById("guess1").value;
+
+            // when they don't input an appropiete value
+            if (isNaN(userGuess) || userGuess === "") {
+                document.getElementById("feedbackLabel").innerText = "That is not a number. Please try again.";
+                return;
+            }
+
+            // Remaining attempts
+            guessesRemaining--;
+            if (guessesRemaining < 0) {
+                guessesRemaining = 0;
+            }
+            document.getElementById("guessesLeftLabel").innerText = "Guesses Left: " + guessesRemaining;
+
+            // User guess feedback
+            if (userGuess == secret) {
+                document.getElementById("feedbackLabel").innerText = "You Won!";
+            } else if (userGuess < secret && guessesRemaining > 0) {
+                document.getElementById("feedbackLabel").innerText = "Guess Higher!";
+            } else if (userGuess > secret && guessesRemaining > 0) {
+                document.getElementById("feedbackLabel").innerText = "Guess Lower!";
+            } else if (guessesRemaining === 0) {
+                document.getElementById("feedbackLabel").innerText = "Out of guesses. You Lose. Press one of the difficulty levels to play again.";
+            }
+        }
+    </script>
+
+</body>
+</html>
