@@ -46,7 +46,7 @@
             document.getElementById("guessesLeftLabel").innerText = "Guesses Left: " + guessesRemaining;
             document.getElementById("feedbackLabel").innerText = "New game started! Make your guess.";
 
-            // First digit, has to be nonezeo
+            // First digit, has to be nonzero
             if (level > 0) {
                 secret = secret + (Math.floor(Math.random() * 9) + 1);
                 level--;
