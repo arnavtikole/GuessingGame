@@ -1,0 +1,94 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <p>2 Player Guessing Game</p>
+    <label for="secret" id="helplabel"> Set Secret Number </label>
+    <input type="number"
+            name="secret"
+            id="secretNum"
+            style="background-color: aquamarine;"
+            placeholder="Range: 1-100"
+            >
+    <input type="button"
+            name="SetValue"
+            id="button"
+            value="Player 1: Set Number"
+            onclick="setSecretNumber()"
+            style=
+            "background-color: rgb(0, 208, 255);
+            border: 3px solid #121896;"
+            >
+
+    <p id="tries_label">Number of Tries Left:</p>
+    <p id="tries" type="number">6</p>
+    <p id="countdown_label">Time Left:</p>
+    <p id="countdown" type="number">25</p>
+
+<script>
+var secretNumber = 0;
+var secretSet = false;
+var actualSecret = 0;
+const timer_game = document.getElementById("countdown");
+
+function setSecretNumber(){
+    const tries = document.getElementById("tries");
+    tries.innerHTML -= 1
+
+    if (tries.innerHTML <= 0){
+        alert("You are out of tries! Player 1 wins!");
+        location.reload();
+        // break
+    }
+
+    secretNumber = document.getElementById("secretNum").value;
+    if (secretSet == false){
+        if (secretNumber > 0 && secretNumber <= 100){
+            alert("Good Job, your number has been set! Now allow Player 2 to start guessing!");
+            document.getElementById("helplabel").innerHTML = "Player 2: Try to Guess The Number!";
+            document.getElementById("button").value = "Player 2: Guess Number";
+            actualSecret = secretNumber;
+            secretSet = true;
+            const intervalName = setInterval(function(){
+
+                timer_game.innerHTML -= 1
+
+                if (timer_game.innerHTML <= 0){
+                    clearInterval(intervalName);
+                    alert("Time out! You lose! Player 1 wins!");
+                    location.reload();
+                    // break
+                }
+
+            },1000)
+        }
+        else{
+            alert("Your number was not b/w 1-100, try again!");
+            secretNumber = 0;
+        }
+    }
+    else{
+
+        const guess = document.getElementById("secretNum").value;
+        if (actualSecret == guess){
+            alert("Your guess is correct!! Player 2 wins!");
+            location.reload();
+        } else if (guess < actualSecret){
+            alert("Your guess was too small!");
+
+        }else{
+            alert("Your guess was too big!");
+        }
+    }
+    document.getElementById("secretNum").value = "";
+}
+
+</script>
+
+</body>
+</html>
