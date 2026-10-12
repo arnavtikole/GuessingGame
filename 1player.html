@@ -92,8 +92,8 @@
             } else if (userGuess > secret && guessesRemaining > 0) {
                 document.getElementById("feedbackLabel").innerText = "Guess Lower!";
             } else if (guessesRemaining === 0) {
-                document.getElementById("feedbackLabel").innerText = "Out of guesses. You Lose. Press one of the difficulty levels to play again.";
-            }
+    document.getElementById("feedbackLabel").innerText = "Out of guesses. You Lose. Press one of the difficulty levels to play again. The secret number was " + secret;
+}
         }
     </script>
 
