@@ -23,7 +23,8 @@
     
     <p id="feedbackLabel"></p>
     <p id="guessesLeftLabel"></p>
-
+    <audio id="winSound" src="C:\Users\5\Downloads\mrstokes302-success-videogame-sfx-mrstokes302-423626.mp3"></audio>
+    <audio id="loseSound" src="C:\Users\5\Downloads\u_l5xum8z250-losing-horn-313723.mp3"></audio>
     <script>
         
         var secret = "";
@@ -87,12 +88,14 @@
             // User guess feedback
             if (userGuess == secret) {
                 document.getElementById("feedbackLabel").innerText = "You Won!";
+                document.getElementById("winSound").play();
             } else if (userGuess < secret && guessesRemaining > 0) {
                 document.getElementById("feedbackLabel").innerText = "Guess Higher!";
             } else if (userGuess > secret && guessesRemaining > 0) {
                 document.getElementById("feedbackLabel").innerText = "Guess Lower!";
             } else if (guessesRemaining === 0) {
     document.getElementById("feedbackLabel").innerText = "Out of guesses. You Lose. Press one of the difficulty levels to play again. The secret number was " + secret + ".";
+    document.getElementById("loseSound").play();
 }
         }
     </script>
