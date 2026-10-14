@@ -4,6 +4,132 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
+    <style>
+        /* Import a futuristic space-themed font */
+        @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&display=swap');
+
+        /* Deep space background with a subtle starfield effect */
+        body {
+            background-color: #04040a;
+            background-image: 
+                radial-gradient(2px 2px at 20px 30px, #ffffff, rgba(0,0,0,0)),
+                radial-gradient(2px 2px at 40px 70px, #ffffff, rgba(0,0,0,0)),
+                radial-gradient(2px 2px at 50px 160px, #ffffff, rgba(0,0,0,0)),
+                radial-gradient(2px 2px at 90px 40px, #ffffff, rgba(0,0,0,0)),
+                radial-gradient(2px 2px at 130px 80px, #ffffff, rgba(0,0,0,0)),
+                radial-gradient(2px 2px at 160px 120px, #ffffff, rgba(0,0,0,0));
+            background-repeat: repeat;
+            background-size: 200px 200px;
+            color: #39ff14; /* Alien neon green */
+            font-family: 'Orbitron', sans-serif;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            min-height: 100vh;
+            margin: 0;
+            text-align: center;
+        }
+
+        /* UFO / Radar glow effect on the main container */
+        body::before {
+            content: "";
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 80vw;
+            height: 80vh;
+            background: radial-gradient(circle, rgba(57,255,20,0.05) 0%, rgba(0,0,0,0) 70%);
+            z-index: -1;
+            border-radius: 50%;
+            box-shadow: 0 0 100px rgba(57,255,20,0.1);
+        }
+
+        /* Game Title */
+        p:first-of-type {
+            font-size: 2.5rem;
+            font-weight: 900;
+            text-transform: uppercase;
+            letter-spacing: 3px;
+            color: #39ff14;
+            text-shadow: 0 0 10px #39ff14, 0 0 20px #39ff14, 0 0 40px rgba(57,255,20,0.5);
+            margin-bottom: 40px;
+        }
+
+        /* Labels */
+        #helplabel {
+            font-size: 1.5rem;
+            color: #00ffff;
+            text-shadow: 0 0 8px #00ffff;
+            margin-bottom: 15px;
+            display: block;
+        }
+
+        /* Overriding inline input styles to match UFO theme */
+        #secretNum {
+            background-color: rgba(0, 20, 10, 0.8) !important;
+            border: 2px solid #39ff14 !important;
+            color: #39ff14 !important;
+            font-family: 'Orbitron', sans-serif;
+            font-size: 1.2rem;
+            padding: 10px 15px;
+            border-radius: 8px;
+            outline: none;
+            text-align: center;
+            box-shadow: inset 0 0 10px rgba(57,255,20,0.3), 0 0 15px rgba(57,255,20,0.5);
+            margin-bottom: 25px;
+            display: block;
+            width: 250px;
+        }
+
+        #secretNum::placeholder {
+            color: rgba(57, 255, 20, 0.4);
+        }
+
+        /* Overriding inline button styles for a spaceship control panel look */
+        #button {
+            background-color: rgba(0, 208, 255, 0.1) !important;
+            border: 2px solid #00ffff !important;
+            color: #00ffff !important;
+            font-family: 'Orbitron', sans-serif;
+            font-size: 1.2rem;
+            font-weight: 700;
+            padding: 15px 30px;
+            border-radius: 12px;
+            cursor: pointer;
+            text-transform: uppercase;
+            box-shadow: 0 0 15px rgba(0, 255, 255, 0.4), inset 0 0 10px rgba(0,255,255,0.2);
+            transition: all 0.3s ease-in-out;
+        }
+
+        #button:hover {
+            background-color: #00ffff !important;
+            color: #04040a !important;
+            box-shadow: 0 0 25px #00ffff, 0 0 50px #00ffff;
+            transform: scale(1.05);
+        }
+
+        /* Heads Up Display (HUD) styles for Tries and Timer */
+        #tries_label, #countdown_label {
+            color: #ff0055;
+            text-transform: uppercase;
+            font-size: 1.2rem;
+            letter-spacing: 2px;
+            text-shadow: 0 0 10px #ff0055;
+            margin-top: 30px;
+            margin-bottom: 5px;
+        }
+
+        #tries, #countdown {
+            color: #ffaa00;
+            font-size: 3rem;
+            font-weight: 900;
+            text-shadow: 0 0 15px #ffaa00, 0 0 30px #ffaa00;
+            margin-top: 0;
+            margin-bottom: 10px;
+        }
+    </style>
 </head>
 <body>
     <p>2 Player Guessing Game</p>
@@ -69,7 +195,7 @@ function setSecretNumber(){
         }
     }
     else{
-        // Decrement tries during Player 2's guessing turn
+        // Subtract during guessing phse
         const tries = document.getElementById("tries");
         tries.innerHTML -= 1;
 
