@@ -4,15 +4,119 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
+    <style>
+        /* Import a futuristic space-themed font */
+        @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&display=swap');
+
+        /* Deep space background with a subtle starfield effect */
+        body {
+            background-color: #04040a;
+            background-image: 
+                radial-gradient(2px 2px at 20px 30px, #ffffff, rgba(0,0,0,0)),
+                radial-gradient(2px 2px at 40px 70px, #ffffff, rgba(0,0,0,0)),
+                radial-gradient(2px 2px at 50px 160px, #ffffff, rgba(0,0,0,0)),
+                radial-gradient(2px 2px at 90px 40px, #ffffff, rgba(0,0,0,0)),
+                radial-gradient(2px 2px at 130px 80px, #ffffff, rgba(0,0,0,0)),
+                radial-gradient(2px 2px at 160px 120px, #ffffff, rgba(0,0,0,0));
+            background-repeat: repeat;
+            background-size: 200px 200px;
+            font-family: 'Orbitron', sans-serif;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            min-height: 100vh;
+            margin: 0;
+        }
+
+        /* UFO HUD / Control Panel Container */
+        #Main {
+            position: relative;
+            padding: 40px 50px;
+            background: rgba(4, 4, 10, 0.8);
+            border: 2px solid #39ff14;
+            border-radius: 20px;
+            box-shadow: 0 0 30px rgba(57, 255, 20, 0.2), inset 0 0 20px rgba(57, 255, 20, 0.1);
+            backdrop-filter: blur(10px);
+            text-align: center;
+            z-index: 1;
+        }
+
+        /* Animated UFO Abduction Beam Effect */
+        #Main::before {
+            content: "";
+            position: absolute;
+            top: -150px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 250px;
+            height: 200px;
+            background: radial-gradient(ellipse at top, rgba(57,255,20,0.8) 0%, rgba(57,255,20,0) 70%);
+            clip-path: polygon(20% 0%, 80% 0%, 100% 100%, 0% 100%);
+            z-index: -1;
+            animation: beamPulse 3s infinite alternate ease-in-out;
+            pointer-events: none;
+        }
+
+        @keyframes beamPulse {
+            0% { opacity: 0.2; transform: translateX(-50%) scaleY(0.9); }
+            100% { opacity: 0.6; transform: translateX(-50%) scaleY(1.1); filter: drop-shadow(0 0 20px #39ff14); }
+        }
+
+        /* Layout for the buttons */
+        #start {
+            display: flex;
+            flex-direction: column;
+            gap: 25px;
+            margin: 0;
+            padding: 0;
+        }
+
+        /* Spaceship Control Buttons */
+        input[type="button"] {
+            background-color: rgba(0, 208, 255, 0.05);
+            border: 2px solid #00ffff;
+            color: #00ffff;
+            font-family: 'Orbitron', sans-serif;
+            font-size: 1.2rem;
+            font-weight: 700;
+            padding: 20px 40px;
+            border-radius: 12px;
+            cursor: pointer;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            box-shadow: 0 0 15px rgba(0, 255, 255, 0.2), inset 0 0 10px rgba(0, 255, 255, 0.1);
+            transition: all 0.3s ease-in-out;
+            width: 100%;
+            min-width: 350px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        /* Button Hover Effects */
+        input[type="button"]:hover {
+            background-color: #00ffff;
+            color: #04040a;
+            box-shadow: 0 0 25px #00ffff, 0 0 50px #00ffff;
+            transform: scale(1.05);
+            text-shadow: none;
+        }
+
+        input[type="button"]:active {
+            transform: scale(0.98);
+            box-shadow: 0 0 10px #00ffff;
+        }
+    </style>
 </head>
 <body>
     <div id="Main">
         <p id="start">
-            <input type="button" value="1 Player Computer Guesses">
-            <input type="button" value="1 Player User Guesses">
-            <input type="button" value="2 Player">
+            <input type="button" value="1 Player Computer Guesses"
+            onclick="location.href='binarysearch.html'">
+            <input type="button" value="1 Player User Guesses"
+            onclick="location.href='1player.html'">
+            <input type="button" value="2 Player"
+            onclick="location.href='2player.html'">
         </p>
     </div>
 </body>
 </html>
-
