@@ -4,6 +4,335 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
+    <style>
+    @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@500;700;900&family=Share+Tech+Mono&display=swap');
+
+    :root {
+        --alien-green: #39ff88;
+        --plasma-cyan: #28f3ff;
+        --nebula-pink: #ff3cac;
+        --cosmic-purple: #7a2cff;
+        --warning-amber: #ffc83d;
+    }
+
+    /* ===== DEEP SPACE BACKGROUND ===== */
+    html {
+        min-height: 100%;
+        overflow-x: hidden;
+        background:
+            radial-gradient(ellipse at 80% 8%, rgba(255, 60, 172, 0.30), transparent 48%),
+            radial-gradient(ellipse at 10% 25%, rgba(40, 243, 255, 0.20), transparent 50%),
+            radial-gradient(ellipse at 20% 95%, rgba(122, 44, 255, 0.45), transparent 50%),
+            radial-gradient(ellipse at 90% 80%, rgba(57, 255, 136, 0.20), transparent 50%),
+            linear-gradient(#02010a, #0b0526 55%, #04121c);
+        background-attachment: fixed;
+    }
+
+    /* Twinkling, drifting star layers */
+    html::before,
+    html::after {
+        content: "";
+        position: fixed;
+        inset: 0;
+        pointer-events: none;
+        z-index: 0;
+    }
+
+    html::before {
+        background-image:
+            radial-gradient(1px 1px at 25px 35px, #fff, transparent),
+            radial-gradient(1.5px 1.5px at 95px 150px, #cfe9ff, transparent),
+            radial-gradient(1px 1px at 165px 75px, #fff, transparent),
+            radial-gradient(2px 2px at 225px 195px, #fff7c2, transparent),
+            radial-gradient(1px 1px at 275px 25px, #fff, transparent),
+            radial-gradient(1.5px 1.5px at 45px 235px, #ffd6f5, transparent),
+            radial-gradient(1px 1px at 135px 265px, #fff, transparent);
+        background-size: 300px 300px;
+        animation: twinkle 4s ease-in-out infinite alternate, drift 120s linear infinite;
+    }
+
+    html::after {
+        background-image:
+            radial-gradient(1px 1px at 65px 85px, #fff, transparent),
+            radial-gradient(2px 2px at 185px 125px, #aef, transparent),
+            radial-gradient(1px 1px at 315px 215px, #fff, transparent),
+            radial-gradient(1.5px 1.5px at 405px 45px, #fdf, transparent),
+            radial-gradient(1px 1px at 455px 335px, #fff, transparent),
+            radial-gradient(2px 2px at 125px 385px, #ffe9a8, transparent);
+        background-size: 500px 500px;
+        animation: twinkle 6s ease-in-out 1.5s infinite alternate-reverse, drift 200s linear infinite reverse;
+    }
+
+    /* ===== ALIEN MIND-SCANNER PANEL (body as a card) ===== */
+    body {
+        position: relative;
+        z-index: 1;
+        box-sizing: border-box;
+        width: min(560px, calc(100% - 32px));
+        margin: 110px auto 90px;
+        padding: 40px 28px 36px;
+        font-family: 'Share Tech Mono', 'Courier New', monospace;
+        font-size: 17px;
+        color: #c8ffe6;
+        text-align: center;
+        background:
+            repeating-linear-gradient(0deg, rgba(57, 255, 136, 0.04) 0 2px, transparent 2px 4px),
+            linear-gradient(160deg, rgba(14, 8, 45, 0.85), rgba(4, 18, 24, 0.85));
+        border: 2px solid var(--plasma-cyan);
+        border-radius: 28px;
+        box-shadow:
+            0 0 18px rgba(40, 243, 255, 0.55),
+            0 0 64px rgba(255, 60, 172, 0.28),
+            inset 0 0 35px rgba(40, 243, 255, 0.12);
+        backdrop-filter: blur(4px);
+    }
+
+    /* Hovering UFO */
+    body::before {
+        content: "🛸";
+        position: absolute;
+        top: -78px;
+        left: 50%;
+        font-size: 68px;
+        line-height: 1;
+        transform: translateX(-50%);
+        filter: drop-shadow(0 0 14px var(--plasma-cyan)) drop-shadow(0 18px 18px rgba(40, 243, 255, 0.35));
+        animation: ufoHover 5s ease-in-out infinite;
+        pointer-events: none;
+    }
+
+    /* Ringed planet in the corner */
+    body::after {
+        content: "🪐";
+        position: absolute;
+        bottom: -54px;
+        left: -36px;
+        font-size: 86px;
+        line-height: 1;
+        filter: drop-shadow(0 0 18px var(--cosmic-purple));
+        animation: planetFloat 9s ease-in-out infinite;
+        pointer-events: none;
+    }
+
+    /* ===== TEXT ===== */
+    p {
+        text-shadow: 0 0 8px rgba(57, 255, 136, 0.55);
+    }
+
+    /* "The computer's guess is:" plus a generated title above it */
+    p:first-of-type {
+        margin: 0;
+        color: var(--warning-amber);
+        font-family: 'Orbitron', sans-serif;
+        font-size: 14px;
+        letter-spacing: 0.16em;
+        text-transform: uppercase;
+        text-shadow: 0 0 10px rgba(255, 200, 61, 0.75);
+    }
+
+    p:first-of-type::before {
+        content: "👽 Alien Mind Scanner 👾";
+        display: block;
+        margin-bottom: 22px;
+        font-weight: 900;
+        font-size: clamp(20px, 5vw, 28px);
+        letter-spacing: 0.2em;
+        background: linear-gradient(90deg, var(--alien-green), var(--plasma-cyan), var(--nebula-pink), var(--alien-green));
+        background-size: 250% 100%;
+        -webkit-background-clip: text;
+        background-clip: text;
+        -webkit-text-fill-color: transparent;
+        color: transparent;
+        text-shadow: none;
+        filter: drop-shadow(0 0 10px rgba(57, 255, 136, 0.6));
+        animation: hologram 6s linear infinite;
+    }
+
+    p:first-of-type::after {
+        content: " 📡";
+    }
+
+    /* ===== THE GUESS (scanner orb) ===== */
+    #guess {
+        position: relative;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        box-sizing: border-box;
+        width: 164px;
+        height: 164px;
+        margin: 34px auto 40px;
+        font-family: 'Orbitron', sans-serif;
+        font-weight: 900;
+        font-size: 52px;
+        color: var(--alien-green);
+        text-shadow: 0 0 14px var(--alien-green), 0 0 34px rgba(57, 255, 136, 0.7);
+        background:
+            radial-gradient(circle, rgba(57, 255, 136, 0.22), rgba(3, 10, 14, 0.95) 68%);
+        border: 3px solid var(--plasma-cyan);
+        border-radius: 50%;
+        box-shadow:
+            0 0 22px rgba(40, 243, 255, 0.8),
+            0 0 60px rgba(122, 44, 255, 0.5),
+            inset 0 0 28px rgba(40, 243, 255, 0.35);
+        animation: orbPulse 3s ease-in-out infinite;
+    }
+
+    /* Dashed orbit ring */
+    #guess::before {
+        content: "";
+        position: absolute;
+        inset: -16px;
+        border: 2px dashed rgba(255, 60, 172, 0.75);
+        border-radius: 50%;
+        animation: spin 18s linear infinite reverse;
+    }
+
+    /* Orbiting satellite */
+    #guess::after {
+        content: "🛰️";
+        position: absolute;
+        inset: -34px;
+        text-align: center;
+        font-size: 22px;
+        line-height: 1;
+        animation: spin 10s linear infinite;
+    }
+
+    /* ===== BUTTONS ===== */
+    input[type="button"] {
+        cursor: pointer;
+        margin: 8px 6px;
+        padding: 12px 22px 12px 48px;
+        font-family: 'Orbitron', sans-serif;
+        font-weight: 700;
+        font-size: 13px;
+        letter-spacing: 0.12em;
+        text-transform: uppercase;
+        color: #04120a;
+        border: 2px solid transparent;
+        border-radius: 999px;
+        background-repeat: no-repeat;
+        background-position: 16px center, 0 0;
+        background-size: 22px 22px, auto;
+        box-shadow: 0 0 14px var(--glow, rgba(57, 255, 136, 0.7));
+        transition: transform 0.15s ease, box-shadow 0.2s ease, filter 0.2s ease;
+    }
+
+    /* Lower */
+    input[type="button"]:nth-of-type(1) {
+        --glow: rgba(40, 243, 255, 0.8);
+        background-image:
+            url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='24' height='24'><text x='2' y='19' font-size='18'>☄️</text></svg>"),
+            linear-gradient(135deg, #28f3ff, #2b8cff);
+    }
+
+    /* Higher */
+    input[type="button"]:nth-of-type(2) {
+        --glow: rgba(255, 60, 172, 0.8);
+        color: #fff;
+        background-image:
+            url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='24' height='24'><text x='2' y='19' font-size='18'>🚀</text></svg>"),
+            linear-gradient(135deg, #ff5ec4, #ff2f5f);
+    }
+
+    /* You guessed it! */
+    input[type="button"]:nth-of-type(3) {
+        --glow: rgba(57, 255, 136, 0.85);
+        display: block;
+        margin: 16px auto 8px;
+        padding-top: 14px;
+        padding-bottom: 14px;
+        font-size: 15px;
+        background-image:
+            url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='24' height='24'><text x='2' y='19' font-size='18'>👽</text></svg>"),
+            linear-gradient(135deg, #39ff88, #1fd6a0);
+    }
+
+    /* Reset / Play Again */
+    input[type="button"]:nth-of-type(4) {
+        --glow: rgba(122, 44, 255, 0.85);
+        display: block;
+        margin: 8px auto 0;
+        color: #fff;
+        background-image:
+            url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='24' height='24'><text x='2' y='19' font-size='18'>🌀</text></svg>"),
+            linear-gradient(135deg, #7a2cff, #b04bff);
+    }
+
+    input[type="button"]:hover {
+        transform: translateY(-3px) scale(1.06);
+        filter: brightness(1.2) saturate(1.15);
+        box-shadow: 0 0 28px var(--glow), 0 0 52px var(--glow);
+    }
+
+    input[type="button"]:active {
+        transform: translateY(1px) scale(0.96);
+    }
+
+    input[type="button"]:focus-visible {
+        outline: 2px dashed var(--warning-amber);
+        outline-offset: 4px;
+    }
+
+    /* ===== COSMIC DIVIDER (the empty paragraph) ===== */
+    p:empty {
+        margin: 22px 0 14px;
+        padding-bottom: 12px;
+        background: linear-gradient(90deg, transparent, var(--alien-green), var(--nebula-pink), transparent) bottom / 100% 1px no-repeat;
+        box-shadow: 0 8px 14px -10px var(--alien-green);
+    }
+
+    p:empty::before {
+        content: "✦ ✧ ✦ ✧ ✦";
+        letter-spacing: 0.4em;
+        color: var(--nebula-pink);
+        text-shadow: 0 0 10px var(--nebula-pink);
+    }
+
+    ::selection { background: var(--nebula-pink); color: #fff; }
+
+    /* ===== ANIMATIONS ===== */
+    @keyframes twinkle {
+        0%   { opacity: 0.35; }
+        50%  { opacity: 1; }
+        100% { opacity: 0.55; }
+    }
+    @keyframes drift {
+        from { background-position: 0 0; }
+        to   { background-position: 600px 900px; }
+    }
+    @keyframes ufoHover {
+        0%, 100% { transform: translateX(-50%) translateY(0) rotate(-5deg); }
+        25%      { transform: translateX(-38%) translateY(-10px) rotate(3deg); }
+        50%      { transform: translateX(-50%) translateY(-18px) rotate(5deg); }
+        75%      { transform: translateX(-62%) translateY(-8px) rotate(-3deg); }
+    }
+    @keyframes planetFloat {
+        0%, 100% { transform: translate(0, 0) rotate(12deg); }
+        50%      { transform: translate(8px, -14px) rotate(-8deg); }
+    }
+    @keyframes hologram {
+        to { background-position: 250% 0; }
+    }
+    @keyframes spin {
+        to { transform: rotate(360deg); }
+    }
+    @keyframes orbPulse {
+        0%, 100% { box-shadow: 0 0 22px rgba(40, 243, 255, 0.8), 0 0 60px rgba(122, 44, 255, 0.5), inset 0 0 28px rgba(40, 243, 255, 0.35); }
+        50%      { box-shadow: 0 0 34px rgba(57, 255, 136, 0.9), 0 0 80px rgba(255, 60, 172, 0.55), inset 0 0 40px rgba(57, 255, 136, 0.45); }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+        html::before, html::after, body::before, body::after,
+        p:first-of-type::before, #guess, #guess::before, #guess::after { animation: none; }
+    }
+
+    @media (max-width: 480px) {
+        body { padding: 36px 16px 30px; }
+        #guess { width: 140px; height: 140px; font-size: 44px; }
+    }
+</style>
 </head>
 <body>
     <p>The computer's guess is: </p>
